@@ -6,7 +6,7 @@
 #ifndef MAIN_MENU
 #define MAIN_MENU
 
-#include "../util.h"
+#include "../util/util.h"
 #include "food-menu.h"
 #include "order-menu.h"
 
