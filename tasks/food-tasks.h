@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////
+// food-tasks.h                                            //
+// This file implements the tasks listed in the food menu. //
+/////////////////////////////////////////////////////////////
+
 #ifndef FOOD_TASKS
 #define FOOD_TASKS
 
@@ -128,6 +133,21 @@ void updateFoodCategory() {
 
 	printf("\n");
 	printf("Food item successfully updated!\n");
+	pause();
+}
+
+void viewFoodItems() {
+	char category[17];
+
+	cls();
+	header();
+	printf("- View Food Items -\n\n");
+
+	printf("Food item category: ");
+	fgets(category, 16, stdin);
+	trim(category);
+
+	printf("FOOD ITEMS COMING SOON...\n");
 	pause();
 }
 
