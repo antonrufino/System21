@@ -1,7 +1,7 @@
 #ifndef ORDER_MENU
 #define ORDER_MENU
 
-#include "../util/ui.h"
+#include "../util.h"
 
 void printOrderMenu() {
 	printf("1. Add order\n");

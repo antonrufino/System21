@@ -1,7 +1,7 @@
 #ifndef FOOD_MENU
 #define FOOD_MENU
 
-#include "../util/ui.h"
+#include "../util.h"
 
 void printFoodMenu() {
 	printf("1. Add Food Item\n");
