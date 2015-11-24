@@ -77,4 +77,22 @@ void viewOrders() {
 	pause();
 }
 
+void cancelOrder() {
+	char choice;
+
+	cls();
+	header();
+	printf("- Cancel Order -\n\n");
+
+	printf("Are you sure you want to cancel your order? (y/n) ");
+	scanf("%c", &choice);
+	getchar();
+
+	printf("\n");
+	if (choice == 'y')
+		printf("All orders cancelled.\n");
+
+	pause();
+}
+
 #endif
