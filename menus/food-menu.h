@@ -2,6 +2,7 @@
 #define FOOD_MENU
 
 #include "../util/util.h"
+#include "../tasks/food-tasks.h"
 
 void printFoodMenu() {
 	printf("1. Add Food Item\n");
@@ -23,8 +24,10 @@ void foodMenu() {
 		header();
 		printFoodMenu();
 		scanf("%d", &choice);
+		getchar();
 
-		if (choice == 1) printf("Coming soon.");
+		if (choice == 1) addFoodItem();
+		else if (choice == 2) removeFoodItem();
 		else if (choice != 7) printf("Not a valid choice.\n");
 	} while (choice != 7);
 }

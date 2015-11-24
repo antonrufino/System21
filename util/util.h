@@ -27,4 +27,9 @@ void trim(char str[]) {
 	if (str[i-1] == '\n') str[i-1] = '\0';
 }
 
+void pause() {
+	printf("Press any key to continue...");
+	getchar();
+}
+
 #endif
