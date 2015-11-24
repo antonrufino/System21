@@ -1,3 +1,9 @@
+/////////////////////////////////////////////////
+// order-menu.h                                //
+// Handles presentation of order menu to user. //
+/////////////////////////////////////////////////
+
+
 #ifndef ORDER_MENU
 #define ORDER_MENU
 
@@ -33,6 +39,7 @@ void orderMenu() {
 		else if (choice == 4) viewOrders();
 		else if (choice == 5) cancelOrder();
 		else if (choice == 6) editQuantity();
+		else if (choice == 7) checkout();
 		else if (choice != 8) printf("Not a valid choice.\n");
 	} while (choice != 8);
 }
