@@ -60,6 +60,7 @@ void removeFoodItem() {
 	printf("\n");
 	printf("Are you sure you want to remove item? (y/n) ");
 	scanf("%c", &choice);
+	getchar();
 
 	if (choice == 'y') {
 		printf("Food item %s successfully removed!\n", code);
