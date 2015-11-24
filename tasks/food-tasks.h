@@ -4,7 +4,7 @@
 #include "../util/util.h"
 
 void addFoodItem() {
-	char name[32], code[16], category[16];
+	char name[33], code[17], category[17];
 	int count;
 	float price;
 
@@ -46,26 +46,89 @@ void addFoodItem() {
 }
 
 void removeFoodItem() {
-	char code[16];
+	char code[17];
 	char choice;
 
 	cls();
 	header();
 	printf("- Remove Food Item -\n\n");
 
-	printf("Food item name: ");
+	printf("Food item code: ");
 	fgets(code, 16, stdin);
 	trim(code);
 
-	printf("\n");
 	printf("Are you sure you want to remove item? (y/n) ");
 	scanf("%c", &choice);
 	getchar();
 
 	if (choice == 'y') {
+		printf("\n");
 		printf("Food item %s successfully removed!\n", code);
 		pause();
 	}
+}
+
+void updateFoodPrice() {
+	char code[17];
+	float newPrice;
+
+	cls();
+	header();
+	printf("- Update Food Price -\n\n");
+
+	printf("Food item code: ");
+	fgets(code, 16, stdin);
+	trim(code);
+
+	printf("New food price: ");
+	scanf("%f", &newPrice);
+	getchar();
+
+	printf("\n");
+	printf("Food item successfully updated!\n");
+	pause();
+}
+
+void updateFoodCount() {
+	char code[17];
+	int newCount;
+
+	cls();
+	header();
+	printf("- Update Food Item Count -\n\n");
+
+	printf("Food item code: ");
+	fgets(code, 16, stdin);
+	trim(code);
+
+	printf("New food item count: ");
+	scanf("%d", &newCount);
+	getchar();
+
+	printf("\n");
+	printf("Food item successfully updated!\n");
+	pause();
+}
+
+void updateFoodCategory() {
+	char code[17];
+	char newCategory[17];
+
+	cls();
+	header();
+	printf("- Update Food Category -\n\n");
+
+	printf("Food item code: ");
+	fgets(code, 16, stdin);
+	trim(code);
+
+	printf("New food item category: ");
+	fgets(newCategory, 16, stdin);
+	trim(newCategory);
+
+	printf("\n");
+	printf("Food item successfully updated!\n");
+	pause();
 }
 
 #endif
