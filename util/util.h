@@ -3,14 +3,16 @@
 // Functions for handling tasks common to all parts of the application. //
 //////////////////////////////////////////////////////////////////////////
 
-#ifndef UI
-#define UI
+#ifndef UTIL
+#define UTIL
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-void cls() {system("clear");}
+void cls() {
+	system("clear");
+}
 
 void header() {
 	printf(" ____            _                   ____  _ \n");
