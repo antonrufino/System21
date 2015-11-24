@@ -1,0 +1,10 @@
+//////////////////////////////////////////////////////////////////////////
+// ui.h                                                                 //
+// Functions for handling tasks common to all parts of the application. //
+//////////////////////////////////////////////////////////////////////////
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void cls() {system("clear");}
