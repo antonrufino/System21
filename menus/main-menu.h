@@ -3,7 +3,12 @@
 // Handles the main menu of the application. //
 ///////////////////////////////////////////////
 
+#ifndef MAIN_MENU
+#define MAIN_MENU
+
 #include "../util/ui.h"
+#include "food-menu.h"
+#include "order-menu.h"
 
 void printMainMenu() {
 	printf("1. Update Fast food Menu\n");
@@ -18,10 +23,14 @@ void mainMenu() {
 
 	do {
 		cls();
+		header();
 		printMainMenu();
 		scanf("%d", &choice);
 
-		if (choice == 1) printf("Coming soon.\n");
+		if (choice == 1) foodMenu();
+		else if (choice == 2) orderMenu();
 		else if (choice != 3) printf("Not a valid choice.\n");
 	} while (choice != 3);
 }
+
+#endif

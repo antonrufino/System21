@@ -1,3 +1,6 @@
+#ifndef ORDER_MENU
+#define ORDER_MENU
+
 #include "../util/ui.h"
 
 void printOrderMenu() {
@@ -18,10 +21,13 @@ void orderMenu() {
 
 	do {
 		cls();
+		header();
 		printOrderMenu();
 		scanf("%d", &choice);
 
 		if (choice == 1) printf("Coming soon.");
-		else if (choice != 7) printf("Not a valid choice.\n");
-	} while (choice != 7);
+		else if (choice != 8) printf("Not a valid choice.\n");
+	} while (choice != 8);
 }
+
+#endif

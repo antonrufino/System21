@@ -1,3 +1,6 @@
+#ifndef FOOD_MENU
+#define FOOD_MENU
+
 #include "../util/ui.h"
 
 void printFoodMenu() {
@@ -17,6 +20,7 @@ void foodMenu() {
 
 	do {
 		cls();
+		header();
 		printFoodMenu();
 		scanf("%d", &choice);
 
@@ -24,3 +28,5 @@ void foodMenu() {
 		else if (choice != 7) printf("Not a valid choice.\n");
 	} while (choice != 7);
 }
+
+#endif
