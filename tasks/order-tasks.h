@@ -41,4 +41,16 @@ void viewFastFood() {
 	pause();
 }
 
+void viewOrders() {
+	cls();
+	header();
+	printf("Order 1 \t %4.2f\n", 1000.0);
+	printf("Order 2 \t %4.2f\n", 20.0);
+	printf("Order 3 \t %4.2f\n", 30.0);
+	printf("Total: %4.2f\n", 1050.0);
+	printf("\n");
+
+	pause();
+}
+
 #endif
