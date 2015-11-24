@@ -40,4 +40,5 @@ void viewFastFood() {
 	printf("FOOD ITEMS IN STOCK COMING SOON...\n");
 	pause();
 }
+
 #endif
