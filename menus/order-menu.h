@@ -25,8 +25,10 @@ void orderMenu() {
 		header();
 		printOrderMenu();
 		scanf("%d", &choice);
+		getchar();
 
 		if (choice == 1) addOrder();
+		else if (choice == 2) viewFastFood();
 		else if (choice != 8) printf("Not a valid choice.\n");
 	} while (choice != 8);
 }

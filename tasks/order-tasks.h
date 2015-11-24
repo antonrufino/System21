@@ -26,4 +26,18 @@ void addOrder() {
 	pause();
 }
 
+void viewFastFood() {
+	char category[17];
+
+	cls();
+	header();
+	printf("- View Fast Food Menu -\n\n");
+
+	printf("Food item category: ");
+	fgets(category, 16, stdin);
+	trim(category);
+
+	printf("FOOD ITEMS IN STOCK COMING SOON...\n");
+	pause();
+}
 #endif
