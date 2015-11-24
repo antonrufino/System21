@@ -10,10 +10,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Clears screen.
 void cls() {
 	system("clear");
 }
 
+// Print application name in ASCII art.
+// Generated using figlet.
 void header() {
 	printf(" ____            _                   ____  _ \n");
 	printf("/ ___| _   _ ___| |_ ___ _ __ ___   |___ \\/ |\n");
@@ -24,13 +27,15 @@ void header() {
 	printf("\n");
 }
 
+// Removes trailing newline in str.
 void trim(char str[]) {
 	int i = strlen(str);
 	if (str[i-1] == '\n') str[i-1] = '\0';
 }
 
+// Pauses execution until enter is pressed.
 void pause() {
-	printf("Press any key to continue...");
+	printf("Press Enter to continue...");
 	getchar();
 }
 
