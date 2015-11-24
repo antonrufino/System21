@@ -41,9 +41,33 @@ void viewFastFood() {
 	pause();
 }
 
+void removeOrder() {
+	char code[17], choice;
+
+	cls();
+	header();
+	printf("- Remove Order -\n\n");
+
+	printf("Food item code: ");
+	fgets(code, 16, stdin);
+	trim(code);
+
+	printf("Are you sure you want to remove %s from the orders? (y/n) ", "Burger");
+	scanf("%c", &choice);
+	getchar();
+
+	printf("\n");
+	if (choice == 'y')
+		printf("%s removed from order.\n", "Burger");
+
+	pause();
+}
+
 void viewOrders() {
 	cls();
 	header();
+	printf("- View Orders -\n\n");
+
 	printf("Order 1 \t %4.2f\n", 1000.0);
 	printf("Order 2 \t %4.2f\n", 20.0);
 	printf("Order 3 \t %4.2f\n", 30.0);
