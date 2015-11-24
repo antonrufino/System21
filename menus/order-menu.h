@@ -2,6 +2,7 @@
 #define ORDER_MENU
 
 #include "../util/util.h"
+#include "../tasks/order-tasks.h"
 
 void printOrderMenu() {
 	printf("1. Add order\n");
@@ -25,7 +26,7 @@ void orderMenu() {
 		printOrderMenu();
 		scanf("%d", &choice);
 
-		if (choice == 1) printf("Coming soon.");
+		if (choice == 1) addOrder();
 		else if (choice != 8) printf("Not a valid choice.\n");
 	} while (choice != 8);
 }
