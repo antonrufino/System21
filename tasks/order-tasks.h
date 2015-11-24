@@ -95,4 +95,25 @@ void cancelOrder() {
 	pause();
 }
 
+void editQuantity() {
+	char code[17];
+	int newQty;
+
+	cls();
+	header();
+	printf("- Edit Quantity -\n\n");
+
+	printf("Food item code: ");
+	fgets(code, 16, stdin);
+	trim(code);
+
+	printf("New quantity: ");
+	scanf("%d", &newQty);
+	getchar();
+
+	printf("\n");
+	printf("Order successfully updated.\n");
+	pause();
+}
+
 #endif
