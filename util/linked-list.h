@@ -1,15 +1,19 @@
+#ifndef LINKED_LIST
+#define LINKED_LIST
+
 #include <stdlib.h>
 #include <string.h>
+#include "util.h"
 
-typedef struct NODE {
+typedef struct NODE_TAG {
 	char name[33], code[17], category[17];
 	int count;
 	float price;
-	struct NODE * prev;
-	struct NODE * next;
+	struct NODE_TAG * prev;
+	struct NODE_TAG * next;
 } Node;
 
-typedef struct LINKED_LIST {
+typedef struct LINKED_LIST_TAG {
 	Node * head;
 	Node * tail;
 } LinkedList;
@@ -25,6 +29,37 @@ void initLinkedList(LinkedList * ll) {
 	ll->tail->next = NULL;
 }
 
+void addNode(LinkedList * ll, char name[], char code[], char category[],
+	int count, float price) {
+	Node * nn = (Node *) malloc(sizeof(Node));
+	Node * i;
+
+	strcpy(nn->name, name);
+	strcpy(nn->code, code);
+	strcpy(nn->category, category);
+	nn->count = count;
+	nn->price = price;
+
+	for (i = ll->head; i->next != ll->tail && categoryToInt(category) > categoryToInt(i->next->category); i = i->next);
+
+	nn->prev = i;
+	nn->next = i->next;
+
+	i->next->prev = nn;
+	i->next = nn;
+}
+
+void deleteNode(Node * del) {
+	del->prev->next = del->next;
+	del->next->prev = del->prev;
+	free(del);
+}
+
+void deleteList(LinkedList * ll) {
+	while (ll->head->next != ll->tail)
+		deleteNode(ll->head->next);
+}
+
 void freeDummies(LinkedList * ll) {
 	free(ll->head);
 	free(ll->tail);
@@ -32,3 +67,9 @@ void freeDummies(LinkedList * ll) {
 	ll->head = NULL;
 	ll->tail = NULL;
 }
+
+int listEmpty(LinkedList ll) {
+	return (ll.head)->next == ll.tail;
+}
+
+#endif

@@ -39,4 +39,20 @@ void pause() {
 	getchar();
 }
 
+// Converts a category to a number.
+int categoryToInt(char str[]) {
+	if (strcmp(str, "Appetizer") == 0) return 1;
+	if (strcmp(str, "Main course") == 0) return 2;
+	if (strcmp(str, "Drink") == 0) return 3;
+	if (strcmp(str, "Dessert") == 0) return 4;
+}
+
+// Converts a number to a category.
+const char * intToCategory(int n) {
+	if (n == 1) return "Appetizer";
+	if (n == 2) return "Main course";
+	if (n == 3) return "Drink";
+	if (n == 4) return "Dessert";
+}
+
 #endif

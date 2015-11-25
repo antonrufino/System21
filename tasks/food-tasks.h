@@ -7,9 +7,10 @@
 #define FOOD_TASKS
 
 #include "../util/util.h"
+#include "../util/linked-list.h"
 
 // Add new food item to fast food menu.
-void addFoodItem() {
+void addFoodItem(LinkedList * food) {
 	char name[33], code[17], category[17];
 	int count;
 	float price;
@@ -48,16 +49,11 @@ void addFoodItem() {
 	trim(category);
 
 	// TODO: Place addNode function call here.
+	addNode(food, name, code, category, count, price);
 	// TODO: Update stock info.
 
 	printf("\n");
 	printf("New food item successfully added!\n");
-	printf("Name: %s\n", name);
-	printf("Code: %s\n", code);
-	printf("Count: %d\n", count);
-	printf("Price: %f\n", price);
-	printf("Category: %s\n", category);
-	printf("\n");
 	pause();
 }
 
@@ -157,20 +153,28 @@ void updateFoodCategory() {
 	pause();
 }
 
-void viewFoodItems() {
+void viewFoodItems(LinkedList * food) {
 	char category[17];
+	Node * i;
 
 	cls();
 	header();
 	printf("- View Food Items -\n\n");
 
-	printf("Food item category: ");
-	fgets(category, 16, stdin);
-	trim(category);
+	if (!listEmpty(*food)) {
+		printf("Food item category: ");
+		fgets(category, 16, stdin);
+		trim(category);
 
-	// TODO: Print nodes with given name.
-
-	printf("FOOD ITEMS COMING SOON...\n");
+		// TODO: Print nodes with given category.
+		printf("CODE\tNAME\t\t\tPRICE\tQTY\tCATEGORY\n");
+		for (i = food->head->next; i != food->tail; i = i->next) {
+			printf("%s\t%s\t%.2f\t%d\t%s\n", i->code, i->name, i->price, i->count, i->category);
+		}
+	} else {
+		printf("No food in stock.");
+	}
+	printf("\n");
 	pause();
 }
 

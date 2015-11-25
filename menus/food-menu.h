@@ -16,7 +16,7 @@ void printFoodMenu() {
 	printf("Choice: ");
 }
 
-void foodMenu() {
+void foodMenu(LinkedList * food) {
 	int choice;
 
 	do {
@@ -26,12 +26,12 @@ void foodMenu() {
 		scanf("%d", &choice);
 		getchar();
 
-		if (choice == 1) addFoodItem();
+		if (choice == 1) addFoodItem(food);
 		else if (choice == 2) removeFoodItem();
 		else if (choice == 3) updateFoodPrice();
 		else if (choice == 4) updateFoodCount();
 		else if (choice == 5) updateFoodCategory();
-		else if (choice == 6) viewFoodItems();
+		else if (choice == 6) viewFoodItems(food);
 		else if (choice != 7) printf("Not a valid choice.\n");
 	} while (choice != 7);
 }

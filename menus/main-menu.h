@@ -18,7 +18,7 @@ void printMainMenu() {
 	printf("Choice: ");
 }
 
-void mainMenu() {
+void mainMenu(LinkedList * food, LinkedList * order) {
 	int choice;
 
 	do {
@@ -27,7 +27,7 @@ void mainMenu() {
 		printMainMenu();
 		scanf("%d", &choice);
 
-		if (choice == 1) foodMenu();
+		if (choice == 1) foodMenu(food);
 		else if (choice == 2) orderMenu();
 		else if (choice != 3) printf("Not a valid choice.\n");
 	} while (choice != 3);

@@ -9,11 +9,14 @@ int main() {
 	initLinkedList(&order);
 	// TODO: Load data from file.
 
-	mainMenu();
+	mainMenu(&food, &order);
 	cls();
 
 	// TODO: Save data to file.
 	// TODO: Delete nodes in linked list.
+
+	deleteList(&food);
+	deleteList(&order);
 
 	freeDummies(&food);
 	freeDummies(&order);
