@@ -42,17 +42,19 @@ void pause() {
 // Converts a category to a number.
 int categoryToInt(char str[]) {
 	if (strcmp(str, "Appetizer") == 0) return 1;
-	if (strcmp(str, "Main course") == 0) return 2;
-	if (strcmp(str, "Drink") == 0) return 3;
-	if (strcmp(str, "Dessert") == 0) return 4;
+	else if (strcmp(str, "Main course") == 0) return 2;
+	else if (strcmp(str, "Drink") == 0) return 3;
+	else if (strcmp(str, "Dessert") == 0) return 4;
+	else return 0;
 }
 
 // Converts a number to a category.
 char * intToCategory(int n) {
 	if (n == 1) return (char *) "Appetizer";
-	if (n == 2) return (char *) "Main course";
-	if (n == 3) return (char *) "Drink";
-	if (n == 4) return (char *) "Dessert";
+	else if (n == 2) return (char *) "Main course";
+	else if (n == 3) return (char *) "Drink";
+	else if (n == 4) return (char *) "Dessert";
+	else return (char *) "Other";
 }
 
 #endif
