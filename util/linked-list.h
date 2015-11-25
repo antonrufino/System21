@@ -49,6 +49,20 @@ void addNode(LinkedList * ll, char name[], char code[], char category[],
 	i->next = nn;
 }
 
+Node * searchByName(LinkedList ll, char name[]) {
+	Node * i;
+	for (i = (ll.head)->next; i != ll.tail; i = i->next)
+		if (strcmp(i->name, name) == 0) return i;
+	return NULL;
+}
+
+Node * searchByCode(LinkedList ll, char code[]) {
+	Node * i;
+	for (i = (ll.head)->next; i != ll.tail; i = i->next)
+		if (strcmp(i->code, code) == 0) return i;
+	return NULL;
+}
+
 void deleteNode(Node * del) {
 	del->prev->next = del->next;
 	del->next->prev = del->prev;

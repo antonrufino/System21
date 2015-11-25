@@ -57,31 +57,42 @@ void addFoodItem(LinkedList * food) {
 	pause();
 }
 
-void removeFoodItem() {
+void removeFoodItem(LinkedList * food) {
 	char code[17];
 	char choice;
+	Node * del;
 
 	cls();
 	header();
 	printf("- Remove Food Item -\n\n");
 
+	if (listEmpty(*food)) {
+		printf("No food in stock.\n");
+		pause();
+		return;
+	}
+
 	printf("Food item code: ");
 	fgets(code, 16, stdin);
 	trim(code);
 
-	// TODO: Search by code.
+	del = searchByCode(*food, code);
+	if (del != NULL) {
+		printf("Are you sure you want to remove item? (y/n) ");
+		scanf("%c", &choice);
+		getchar();
 
-	printf("Are you sure you want to remove item? (y/n) ");
-	scanf("%c", &choice);
-	getchar();
+		if (choice == 'y') {
+			deleteNode(del);
 
-	if (choice == 'y') {
-		//TODO: Remove node.
-
+			printf("\n");
+			printf("Food item %s successfully removed!\n", code);
+		}
+	} else {
 		printf("\n");
-		printf("Food item %s successfully removed!\n", code);
-		pause();
+		printf("Food item not found.\n");
 	}
+	pause();
 }
 
 void updateFoodPrice() {
@@ -167,7 +178,7 @@ void viewFoodItems(LinkedList * food) {
 		trim(category);
 
 		// TODO: Print nodes with given category.
-		printf("CODE\tNAME\t\t\tPRICE\tQTY\tCATEGORY\n");
+		printf("CODE\tNAME\tPRICE\tQTY\tCATEGORY\n");
 		for (i = food->head->next; i != food->tail; i = i->next) {
 			printf("%s\t%s\t%.2f\t%d\t%s\n", i->code, i->name, i->price, i->count, i->category);
 		}
