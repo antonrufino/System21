@@ -1,7 +1,12 @@
 #include "menus/main-menu.h"
+#include "util/linked-list.h"
 
 int main() {
-	// TODO: Initialize linked lists with dummy nodes.
+	LinkedList food;
+	LinkedList order;
+
+	initLinkedList(&food);
+	initLinkedList(&order);
 	// TODO: Load data from file.
 
 	mainMenu();
@@ -9,7 +14,9 @@ int main() {
 
 	// TODO: Save data to file.
 	// TODO: Delete nodes in linked list.
-	// TODO: Delete dummy nodes.
+
+	freeDummies(&food);
+	freeDummies(&order);
 
 	return 0;
 }
