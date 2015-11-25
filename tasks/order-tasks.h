@@ -25,6 +25,8 @@ void addOrder() {
 	// List will first be searched by product name. If there is no product
 	// given name, list will be searched by code.
 
+	// IDEA: If existing order found, update order instead of showing error.
+
 	printf("\n");
 	printf("Food item %s found!\n", query);
 	printf("Enter number of orders for %s: ", query);
@@ -32,6 +34,7 @@ void addOrder() {
 	getchar();
 
 	// TODO: Implement adding of node to list with given data.
+	// TODO: Update stock info
 
 	printf("\n");
 	printf("You ordered %s with quantity of %d\n", query, numOrders);
@@ -50,6 +53,7 @@ void viewFastFood() {
 	fgets(category, 16, stdin);
 	trim(category);
 
+	// TODO: Traverse list. Print only those with matching category.
 	printf("FOOD ITEMS IN STOCK COMING SOON...\n");
 	pause();
 }
@@ -67,12 +71,17 @@ void removeOrder() {
 	fgets(code, 16, stdin);
 	trim(code);
 
+	// TODO: Search for food item with given code.
+	// Stop task if nothing found.
+
 	printf("Are you sure you want to remove %s from the orders? (y/n) ", "Burger");
 	scanf("%c", &choice);
 	getchar();
 
 	printf("\n");
 	if (choice == 'y')
+		// TODO: Remove node.
+		// TODO: Update stock info.
 		printf("%s removed from order.\n", "Burger");
 
 	pause();
@@ -82,6 +91,8 @@ void viewOrders() {
 	cls();
 	header();
 	printf("- View Orders -\n\n");
+
+	// TODO: Replace this with actual data by printing nodes in order list.
 
 	// Dummy data.
 	printf("Order 1 \t %4.2f\n", 1000.0);
@@ -107,6 +118,7 @@ void cancelOrder() {
 
 	printf("\n");
 	if (choice == 'y')
+		// TODO: Delete everything in list except dummy nodes.
 		printf("All orders cancelled.\n");
 
 	pause();
@@ -141,6 +153,8 @@ void checkout() {
 	cls();
 	header();
 	printf("- Checkout -\n\n");
+
+	// TODO: List traversal.
 
 	// Dummy data once more.
 	printf("Order 1 \t %4.2f\n", 1000.0);

@@ -8,6 +8,7 @@
 
 #include "../util/util.h"
 
+// Add new food item to fast food menu.
 void addFoodItem() {
 	char name[33], code[17], category[17];
 	int count;
@@ -21,9 +22,18 @@ void addFoodItem() {
 	fgets(name, 32, stdin);
 	trim(name);
 
+	// TODO: Check if food item with same name exists, i.e. search based on
+	// name.
+
 	printf("Food item code: ");
 	fgets(code, 16, stdin);
 	trim(code);
+
+	// TODO: Check if food item with same code exists, i.e., search based on
+	// code.
+
+	// IDEA: If item with existing name found, update information instead of
+	// showing error.
 
 	printf("Food item count: ");
 	scanf("%d", &count);
@@ -37,7 +47,8 @@ void addFoodItem() {
 	fgets(category, 16, stdin);
 	trim(category);
 
-	//TODO: Place addNode function call here.
+	// TODO: Place addNode function call here.
+	// TODO: Update stock info.
 
 	printf("\n");
 	printf("New food item successfully added!\n");
@@ -62,11 +73,15 @@ void removeFoodItem() {
 	fgets(code, 16, stdin);
 	trim(code);
 
+	// TODO: Search by code.
+
 	printf("Are you sure you want to remove item? (y/n) ");
 	scanf("%c", &choice);
 	getchar();
 
 	if (choice == 'y') {
+		//TODO: Remove node.
+
 		printf("\n");
 		printf("Food item %s successfully removed!\n", code);
 		pause();
@@ -84,6 +99,8 @@ void updateFoodPrice() {
 	printf("Food item code: ");
 	fgets(code, 16, stdin);
 	trim(code);
+
+	// TODO: Search by code.
 
 	printf("New food price: ");
 	scanf("%f", &newPrice);
@@ -106,6 +123,8 @@ void updateFoodCount() {
 	fgets(code, 16, stdin);
 	trim(code);
 
+	// TODO: Search by code.
+
 	printf("New food item count: ");
 	scanf("%d", &newCount);
 	getchar();
@@ -127,6 +146,8 @@ void updateFoodCategory() {
 	fgets(code, 16, stdin);
 	trim(code);
 
+	//TODO: Search by code.
+
 	printf("New food item category: ");
 	fgets(newCategory, 16, stdin);
 	trim(newCategory);
@@ -146,6 +167,8 @@ void viewFoodItems() {
 	printf("Food item category: ");
 	fgets(category, 16, stdin);
 	trim(category);
+
+	// TODO: Print nodes with given name.
 
 	printf("FOOD ITEMS COMING SOON...\n");
 	pause();
