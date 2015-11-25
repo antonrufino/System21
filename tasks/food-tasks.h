@@ -11,8 +11,8 @@
 
 // Add new food item to fast food menu.
 void addFoodItem(LinkedList * food) {
-	char name[33], code[17], category[17];
-	int count;
+	char name[33], code[17];
+	int count, category;
 	float price;
 
 	cls();
@@ -44,12 +44,19 @@ void addFoodItem(LinkedList * food) {
 	scanf("%f", &price);
 	getchar();
 
-	printf("Food category: ");
-	fgets(category, 16, stdin);
-	trim(category);
+	printf("Food category:\n");
+	printf("1. Appetizer\n");
+	printf("2. Main course\n");
+	printf("3. Drink\n");
+	printf("4. Dessert\n");
+
+	printf("\n");
+	printf("Choice: ");
+	scanf("%d", &category);
+	getchar();
 
 	// TODO: Place addNode function call here.
-	addNode(food, name, code, category, count, price);
+	addNode(food, name, code, intToCategory(category), count, price);
 	// TODO: Update stock info.
 
 	printf("\n");

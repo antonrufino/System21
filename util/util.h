@@ -48,11 +48,11 @@ int categoryToInt(char str[]) {
 }
 
 // Converts a number to a category.
-const char * intToCategory(int n) {
-	if (n == 1) return "Appetizer";
-	if (n == 2) return "Main course";
-	if (n == 3) return "Drink";
-	if (n == 4) return "Dessert";
+char * intToCategory(int n) {
+	if (n == 1) return (char *) "Appetizer";
+	if (n == 2) return (char *) "Main course";
+	if (n == 3) return (char *) "Drink";
+	if (n == 4) return (char *) "Dessert";
 }
 
 #endif
