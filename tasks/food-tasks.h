@@ -102,26 +102,41 @@ void removeFoodItem(LinkedList * food) {
 	pause();
 }
 
-void updateFoodPrice() {
+void updateFoodPrice(LinkedList * food) {
 	char code[17];
 	float newPrice;
+	Node * foodItem;
 
 	cls();
 	header();
 	printf("- Update Food Price -\n\n");
 
+	if (listEmpty(*food)) {
+		printf("No food in stock.\n");
+		pause();
+		return;
+	}
+
 	printf("Food item code: ");
 	fgets(code, 16, stdin);
 	trim(code);
 
-	// TODO: Search by code.
+	foodItem = searchByCode(*food, code);
+	if (foodItem != NULL) {
+		printf("Food item %s found!\n", code);
 
-	printf("New food price: ");
-	scanf("%f", &newPrice);
-	getchar();
+		printf("\n");
+		printf("New food price: ");
+		scanf("%f", &newPrice);
+		getchar();
 
-	printf("\n");
-	printf("Food item successfully updated!\n");
+		foodItem->price = newPrice;
+		printf("Food item %s sucessfully updated!\n", code);
+	} else {
+		printf("\n");
+		printf("Food item not found.\n");
+	}
+
 	pause();
 }
 
