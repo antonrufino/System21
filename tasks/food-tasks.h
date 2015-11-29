@@ -19,16 +19,12 @@ void addFoodItem(LinkedList * food) {
 	header();
 	printf("- Add Food Item -\n\n");
 
-	printf("Food item name: ");
-	fgets(name, 32, stdin);
-	trim(name);
+	getString("Food item name: ", 32, name);
 
 	// TODO: Check if food item with same name exists, i.e. search based on
 	// name.
 
-	printf("Food item code: ");
-	fgets(code, 16, stdin);
-	trim(code);
+	getString("Food item code: ", 16, code);
 
 	// TODO: Check if food item with same code exists, i.e., search based on
 	// code.
@@ -36,24 +32,9 @@ void addFoodItem(LinkedList * food) {
 	// IDEA: If item with existing name found, update information instead of
 	// showing error.
 
-	printf("Food item count: ");
-	scanf("%d", &count);
-	getchar();
-
-	printf("Food item price: ");
-	scanf("%f", &price);
-	getchar();
-
-	printf("Food category:\n");
-	printf("1. Appetizer\n");
-	printf("2. Main course\n");
-	printf("3. Drink\n");
-	printf("4. Dessert\n");
-
-	printf("\n");
-	printf("Choice: ");
-	scanf("%d", &category);
-	getchar();
+	getInt("Food item count: ", &count);
+	getFloat("Food item price: ", &price);
+	getCategory("Food item category:", &category);
 
 	// TODO: Place addNode function call here.
 	addNode(food, name, code, intToCategory(category), count, price);
@@ -79,9 +60,7 @@ void removeFoodItem(LinkedList * food) {
 		return;
 	}
 
-	printf("Food item code: ");
-	fgets(code, 16, stdin);
-	trim(code);
+	getString("Food item code: ", 16, code);
 
 	del = searchByCode(*food, code);
 	if (del != NULL) {
@@ -117,18 +96,14 @@ void updateFoodPrice(LinkedList * food) {
 		return;
 	}
 
-	printf("Food item code: ");
-	fgets(code, 16, stdin);
-	trim(code);
+	getString("Food item code: ", 16, code);
 
 	foodItem = searchByCode(*food, code);
 	if (foodItem != NULL) {
 		printf("Food item %s found!\n", code);
 
 		printf("\n");
-		printf("New food price: ");
-		scanf("%f", &newPrice);
-		getchar();
+		getFloat("New price: ", &newPrice);
 
 		foodItem->price = newPrice;
 		printf("Food item %s sucessfully updated!\n", code);
@@ -155,18 +130,14 @@ void updateFoodCount(LinkedList * food) {
 		return;
 	}
 
-	printf("Food item code: ");
-	fgets(code, 16, stdin);
-	trim(code);
+	getString("Food item code: ", 16, code);
 
 	foodItem = searchByCode(*food, code);
 	if (foodItem != NULL) {
 		printf("Food item %s found!\n", code);
 
 		printf("\n");
-		printf("New food quantity: ");
-		scanf("%d", &newCount);
-		getchar();
+		getInt("New quantity: ", &newCount);
 
 		foodItem->count = newCount;
 		printf("Food item %s sucessfully updated!\n", code);
@@ -193,23 +164,12 @@ void updateFoodCategory(LinkedList * food) {
 		return;
 	}
 
-	printf("Food item code: ");
-	fgets(code, 16, stdin);
-	trim(code);
+	getString("Food item code: ", 16, code);
 
 	foodItem = searchByCode(*food, code);
 
 	if (foodItem != NULL) {
-		printf("New food category:\n");
-		printf("1. Appetizer\n");
-		printf("2. Main course\n");
-		printf("3. Drink\n");
-		printf("4. Dessert\n");
-
-		printf("\n");
-		printf("Choice: ");
-		scanf("%d", &newCategory);
-		getchar();
+		getCategory("New food category: ", &newCategory);
 
 		if (strcmp(foodItem->category, intToCategory(newCategory)) != 0) {
 			addNode(food, foodItem->name, foodItem->code, intToCategory(newCategory), foodItem->count, foodItem->price);
@@ -238,17 +198,7 @@ void viewFoodItems(LinkedList * food) {
 	printf("- View Food Items -\n\n");
 
 	if (!listEmpty(*food)) {
-		printf("Food category:\n");
-		printf("1. Appetizer\n");
-		printf("2. Main course\n");
-		printf("3. Drink\n");
-		printf("4. Dessert\n");
-		printf("0. All\n");
-
-		printf("\n");
-		printf("Choice: ");
-		scanf("%d", &category);
-		getchar();
+		getCategory("Food item category (Enter 0 to view all):", &category);
 
 		// TODO: Print nodes with given category.
 		printf("CODE\tNAME\tPRICE\tQTY\tCATEGORY\n");

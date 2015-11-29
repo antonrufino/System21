@@ -57,4 +57,35 @@ char * intToCategory(int n) {
 	else return (char *) "Other";
 }
 
+void getString(const char * prompt, int strlen, char name[]) {
+	printf("%s", prompt);
+	fgets(name, strlen, stdin);
+	trim(name);
+}
+
+void getInt(const char * prompt, int * count) {
+	printf("%s", prompt);
+	scanf("%d", count);
+	getchar();
+}
+
+void getFloat(const char * prompt, float * price) {
+	printf("%s", prompt);
+	scanf("%f", price);
+	getchar();
+}
+
+void getCategory(const char * prompt, int * category) {
+	printf("%s\n", prompt);
+	printf("1. Appetizer\n");
+	printf("2. Main course\n");
+	printf("3. Drink\n");
+	printf("4. Dessert\n");
+
+	printf("\n");
+	printf("Choice: ");
+	scanf("%d", category);
+	getchar();
+}
+
 #endif
