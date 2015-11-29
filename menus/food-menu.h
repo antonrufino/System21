@@ -30,7 +30,7 @@ void foodMenu(LinkedList * food) {
 		else if (choice == 2) removeFoodItem(food);
 		else if (choice == 3) updateFoodPrice(food);
 		else if (choice == 4) updateFoodCount(food);
-		else if (choice == 5) updateFoodCategory();
+		else if (choice == 5) updateFoodCategory(food);
 		else if (choice == 6) viewFoodItems(food);
 		else if (choice != 7) printf("Not a valid choice.\n");
 	} while (choice != 7);

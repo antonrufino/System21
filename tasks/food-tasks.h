@@ -178,26 +178,54 @@ void updateFoodCount(LinkedList * food) {
 	pause();
 }
 
-void updateFoodCategory() {
+void updateFoodCategory(LinkedList * food) {
 	char code[17];
-	char newCategory[17];
+	int newCategory;
+	Node * foodItem;
 
 	cls();
 	header();
 	printf("- Update Food Category -\n\n");
 
+	if (listEmpty(*food)) {
+		printf("No food in stock.\n");
+		pause();
+		return;
+	}
+
 	printf("Food item code: ");
 	fgets(code, 16, stdin);
 	trim(code);
 
-	//TODO: Search by code.
+	foodItem = searchByCode(*food, code);
 
-	printf("New food item category: ");
-	fgets(newCategory, 16, stdin);
-	trim(newCategory);
+	if (foodItem != NULL) {
+		printf("New food category:\n");
+		printf("1. Appetizer\n");
+		printf("2. Main course\n");
+		printf("3. Drink\n");
+		printf("4. Dessert\n");
 
-	printf("\n");
-	printf("Food item successfully updated!\n");
+		printf("\n");
+		printf("Choice: ");
+		scanf("%d", &newCategory);
+		getchar();
+
+		if (strcmp(foodItem->category, intToCategory(newCategory)) != 0) {
+			addNode(food, foodItem->name, foodItem->code, intToCategory(newCategory), foodItem->count, foodItem->price);
+			deleteNode(foodItem);
+
+			printf("\n");
+			printf("Food item successfully updated!\n");
+		} else {
+			printf("\n");
+			printf("Category entered is the same as current category of food item %s. Nothing changed.\n", code);
+		}
+	} else {
+		printf("\n");
+		printf("Food item not found.\n");
+	}
+
 	pause();
 }
 
