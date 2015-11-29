@@ -20,25 +20,28 @@ void addFoodItem(LinkedList * food) {
 	printf("- Add Food Item -\n\n");
 
 	getString("Food item name: ", 32, name);
+	if (searchByName(*food, name) != NULL) {
+		printf("\n");
+		printf("Food item with same name already exists.\n");
+		pause();
 
-	// TODO: Check if food item with same name exists, i.e. search based on
-	// name.
+		return;
+	}
 
 	getString("Food item code: ", 16, code);
+	if (searchByCode(*food, code) != NULL) {
+		printf("\n");
+		printf("Food item with same code already exists.\n");
+		pause();
 
-	// TODO: Check if food item with same code exists, i.e., search based on
-	// code.
-
-	// IDEA: If item with existing name found, update information instead of
-	// showing error.
+		return;
+	}
 
 	getInt("Food item count: ", &count);
 	getFloat("Food item price: ", &price);
 	getCategory("Food item category:", &category);
 
-	// TODO: Place addNode function call here.
 	addNode(food, name, code, intToCategory(category), count, price);
-	// TODO: Update stock info.
 
 	printf("\n");
 	printf("New food item successfully added!\n");
@@ -200,7 +203,7 @@ void viewFoodItems(LinkedList * food) {
 	if (!listEmpty(*food)) {
 		getCategory("Food item category (Enter 0 to view all):", &category);
 
-		// TODO: Print nodes with given category.
+		printf("\n");
 		printf("CODE\tNAME\tPRICE\tQTY\tCATEGORY\n");
 		for (i = food->head->next; i != food->tail; i = i->next) {
 			if (categoryToInt(i->category) == category || category == 0)
