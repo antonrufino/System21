@@ -202,7 +202,7 @@ void updateFoodCategory() {
 }
 
 void viewFoodItems(LinkedList * food) {
-	char category[17];
+	int category;
 	Node * i;
 
 	cls();
@@ -210,14 +210,23 @@ void viewFoodItems(LinkedList * food) {
 	printf("- View Food Items -\n\n");
 
 	if (!listEmpty(*food)) {
-		printf("Food item category: ");
-		fgets(category, 16, stdin);
-		trim(category);
+		printf("Food category:\n");
+		printf("1. Appetizer\n");
+		printf("2. Main course\n");
+		printf("3. Drink\n");
+		printf("4. Dessert\n");
+		printf("0. All\n");
+
+		printf("\n");
+		printf("Choice: ");
+		scanf("%d", &category);
+		getchar();
 
 		// TODO: Print nodes with given category.
 		printf("CODE\tNAME\tPRICE\tQTY\tCATEGORY\n");
 		for (i = food->head->next; i != food->tail; i = i->next) {
-			printf("%s\t%s\t%.2f\t%d\t%s\n", i->code, i->name, i->price, i->count, i->category);
+			if (categoryToInt(i->category) == category || category == 0)
+				printf("%s\t%s\t%.2f\t%d\t%s\n", i->code, i->name, i->price, i->count, i->category);
 		}
 	} else {
 		printf("No food in stock.");
