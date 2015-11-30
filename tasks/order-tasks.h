@@ -7,6 +7,7 @@
 #define ORDER_TASKS
 
 #include "../util/util.h"
+#include "../util/linked-list.h"
 
 // Facilitates Add Order task
 void addOrder() {

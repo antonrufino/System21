@@ -7,6 +7,8 @@
 #define MAIN_MENU
 
 #include "../util/util.h"
+#include "../util/linked-list.h"
+
 #include "food-menu.h"
 #include "order-menu.h"
 
@@ -28,7 +30,7 @@ void mainMenu(LinkedList food, LinkedList order) {
 		scanf("%d", &choice);
 
 		if (choice == 1) foodMenu(food);
-		else if (choice == 2) orderMenu();
+		else if (choice == 2) orderMenu(order, food);
 		else if (choice != 3) printf("Not a valid choice.\n");
 	} while (choice != 3);
 }

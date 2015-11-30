@@ -8,6 +8,8 @@
 #define ORDER_MENU
 
 #include "../util/util.h"
+#include "../util/linked-list.h"
+
 #include "../tasks/order-tasks.h"
 
 void printOrderMenu() {
@@ -23,7 +25,7 @@ void printOrderMenu() {
 	printf("Choice: ");
 }
 
-void orderMenu() {
+void orderMenu(LinkedList order, LinkedList food) {
 	int choice;
 
 	do {
