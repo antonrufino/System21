@@ -29,7 +29,7 @@ void initLinkedList(LinkedList * ll) {
 	ll->tail->next = NULL;
 }
 
-void addNode(LinkedList * ll, char name[], char code[], char category[],
+void addNode(LinkedList ll, char name[], char code[], char category[],
 	int count, float price) {
 	Node * nn = (Node *) malloc(sizeof(Node));
 	Node * i;
@@ -40,7 +40,7 @@ void addNode(LinkedList * ll, char name[], char code[], char category[],
 	nn->count = count;
 	nn->price = price;
 
-	for (i = ll->head; i->next != ll->tail && categoryToInt(category) > categoryToInt(i->next->category); i = i->next);
+	for (i = ll.head; i->next != ll.tail && categoryToInt(category) > categoryToInt(i->next->category); i = i->next);
 
 	nn->prev = i;
 	nn->next = i->next;
@@ -69,9 +69,9 @@ void deleteNode(Node * del) {
 	free(del);
 }
 
-void deleteList(LinkedList * ll) {
-	while (ll->head->next != ll->tail)
-		deleteNode(ll->head->next);
+void deleteList(LinkedList ll) {
+	while ((ll.head)->next != ll.tail)
+		deleteNode((ll.head)->next);
 }
 
 void freeDummies(LinkedList * ll) {

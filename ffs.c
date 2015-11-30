@@ -10,15 +10,15 @@ int main() {
 	initLinkedList(&order);
 	// TODO: Load data from file.
 
-	mainMenu(&food, &order);
+	mainMenu(food, order);
 	cls();
 
 	// TODO: Save data to file.
 	// TODO: Delete nodes in linked list.
 
 	// Delete middle nodes.
-	deleteList(&food);
-	deleteList(&order);
+	deleteList(food);
+	deleteList(order);
 
 	// Delete dummy nodes.
 	freeDummies(&food);

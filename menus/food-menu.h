@@ -16,7 +16,7 @@ void printFoodMenu() {
 	printf("Choice: ");
 }
 
-void foodMenu(LinkedList * food) {
+void foodMenu(LinkedList food) {
 	int choice;
 
 	do {

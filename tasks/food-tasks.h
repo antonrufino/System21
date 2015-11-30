@@ -10,7 +10,7 @@
 #include "../util/linked-list.h"
 
 // Add new food item to fast food menu.
-void addFoodItem(LinkedList * food) {
+void addFoodItem(LinkedList food) {
 	char name[33], code[17];
 	int count, category;
 	float price;
@@ -20,7 +20,7 @@ void addFoodItem(LinkedList * food) {
 	printf("- Add Food Item -\n\n");
 
 	getString("Food item name: ", 32, name);
-	if (searchByName(*food, name) != NULL) {
+	if (searchByName(food, name) != NULL) {
 		printf("\n");
 		printf("Food item with same name already exists.\n");
 		pause();
@@ -29,7 +29,7 @@ void addFoodItem(LinkedList * food) {
 	}
 
 	getString("Food item code: ", 16, code);
-	if (searchByCode(*food, code) != NULL) {
+	if (searchByCode(food, code) != NULL) {
 		printf("\n");
 		printf("Food item with same code already exists.\n");
 		pause();
@@ -48,7 +48,7 @@ void addFoodItem(LinkedList * food) {
 	pause();
 }
 
-void removeFoodItem(LinkedList * food) {
+void removeFoodItem(LinkedList food) {
 	char code[17];
 	char choice;
 	Node * del;
@@ -57,7 +57,7 @@ void removeFoodItem(LinkedList * food) {
 	header();
 	printf("- Remove Food Item -\n\n");
 
-	if (listEmpty(*food)) {
+	if (listEmpty(food)) {
 		printf("No food in stock.\n");
 		pause();
 		return;
@@ -65,7 +65,7 @@ void removeFoodItem(LinkedList * food) {
 
 	getString("Food item code: ", 16, code);
 
-	del = searchByCode(*food, code);
+	del = searchByCode(food, code);
 	if (del != NULL) {
 		printf("Are you sure you want to remove item? (y/n) ");
 		scanf("%c", &choice);
@@ -84,7 +84,7 @@ void removeFoodItem(LinkedList * food) {
 	pause();
 }
 
-void updateFoodPrice(LinkedList * food) {
+void updateFoodPrice(LinkedList food) {
 	char code[17];
 	float newPrice;
 	Node * foodItem;
@@ -93,7 +93,7 @@ void updateFoodPrice(LinkedList * food) {
 	header();
 	printf("- Update Food Price -\n\n");
 
-	if (listEmpty(*food)) {
+	if (listEmpty(food)) {
 		printf("No food in stock.\n");
 		pause();
 		return;
@@ -101,7 +101,7 @@ void updateFoodPrice(LinkedList * food) {
 
 	getString("Food item code: ", 16, code);
 
-	foodItem = searchByCode(*food, code);
+	foodItem = searchByCode(food, code);
 	if (foodItem != NULL) {
 		printf("Food item %s found!\n", code);
 
@@ -118,7 +118,7 @@ void updateFoodPrice(LinkedList * food) {
 	pause();
 }
 
-void updateFoodCount(LinkedList * food) {
+void updateFoodCount(LinkedList food) {
 	char code[17];
 	int newCount;
 	Node * foodItem;
@@ -127,7 +127,7 @@ void updateFoodCount(LinkedList * food) {
 	header();
 	printf("- Update Food Count -\n\n");
 
-	if (listEmpty(*food)) {
+	if (listEmpty(food)) {
 		printf("No food in stock.\n");
 		pause();
 		return;
@@ -135,7 +135,7 @@ void updateFoodCount(LinkedList * food) {
 
 	getString("Food item code: ", 16, code);
 
-	foodItem = searchByCode(*food, code);
+	foodItem = searchByCode(food, code);
 	if (foodItem != NULL) {
 		printf("Food item %s found!\n", code);
 
@@ -152,7 +152,7 @@ void updateFoodCount(LinkedList * food) {
 	pause();
 }
 
-void updateFoodCategory(LinkedList * food) {
+void updateFoodCategory(LinkedList food) {
 	char code[17];
 	int newCategory;
 	Node * foodItem;
@@ -161,7 +161,7 @@ void updateFoodCategory(LinkedList * food) {
 	header();
 	printf("- Update Food Category -\n\n");
 
-	if (listEmpty(*food)) {
+	if (listEmpty(food)) {
 		printf("No food in stock.\n");
 		pause();
 		return;
@@ -169,7 +169,7 @@ void updateFoodCategory(LinkedList * food) {
 
 	getString("Food item code: ", 16, code);
 
-	foodItem = searchByCode(*food, code);
+	foodItem = searchByCode(food, code);
 
 	if (foodItem != NULL) {
 		getCategory("New food category: ", &newCategory);
@@ -192,7 +192,7 @@ void updateFoodCategory(LinkedList * food) {
 	pause();
 }
 
-void viewFoodItems(LinkedList * food) {
+void viewFoodItems(LinkedList food) {
 	int category;
 	Node * i;
 
@@ -200,12 +200,12 @@ void viewFoodItems(LinkedList * food) {
 	header();
 	printf("- View Food Items -\n\n");
 
-	if (!listEmpty(*food)) {
+	if (!listEmpty(food)) {
 		getCategory("Food item category (Enter 0 to view all):", &category);
 
 		printf("\n");
 		printf("CODE\tNAME\tPRICE\tQTY\tCATEGORY\n");
-		for (i = food->head->next; i != food->tail; i = i->next) {
+		for (i = (food.head)->next; i != food.tail; i = i->next) {
 			if (categoryToInt(i->category) == category || category == 0)
 				printf("%s\t%s\t%.2f\t%d\t%s\n", i->code, i->name, i->price, i->count, i->category);
 		}

@@ -18,7 +18,7 @@ void printMainMenu() {
 	printf("Choice: ");
 }
 
-void mainMenu(LinkedList * food, LinkedList * order) {
+void mainMenu(LinkedList food, LinkedList order) {
 	int choice;
 
 	do {
