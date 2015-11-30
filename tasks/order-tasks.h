@@ -13,10 +13,10 @@
 void addOrder(LinkedList order, LinkedList food);
 void viewFastFood(LinkedList food);
 void removeOrder(LinkedList order);
-void viewOrders(LinkedList order);
+void viewOrders(LinkedList order, int showHeader);
 void cancelOrder(LinkedList order);
 void editQuantity(LinkedList order, LinkedList food, Node * orderItem);
-void checkout();
+void checkout(LinkedList order, LinkedList food);
 
 // Facilitates Add Order task
 void addOrder(LinkedList order, LinkedList food) {
@@ -129,13 +129,15 @@ void removeOrder(LinkedList order) {
 	pause();
 }
 
-void viewOrders(LinkedList order) {
+void viewOrders(LinkedList order, int showHeader) {
 	float totalCost = 0.0, cost;
 	Node * i;
 
-	cls();
-	header();
-	printf("- View Orders -\n\n");
+	if (showHeader) {
+		cls();
+		header();
+		printf("- View Orders -\n\n");
+	}
 
 	if (listEmpty(order)) {
 		printf("Nothing has been ordered.\n");
@@ -153,7 +155,8 @@ void viewOrders(LinkedList order) {
 	printf("Total cost: %4.2f\n", totalCost);
 
 	printf("\n");
-	pause();
+
+	if (showHeader) pause();
 }
 
 // Handles cancelling of entire order.
@@ -163,6 +166,13 @@ void cancelOrder(LinkedList order) {
 	cls();
 	header();
 	printf("- Cancel Order -\n\n");
+
+	if (listEmpty(order)) {
+		printf("Nothing has been ordered.\n");
+		pause();
+
+		return;
+	}
 
 	getYesOrNo("Are you sure you want to cancel your order?", &choice);
 
@@ -222,21 +232,33 @@ void editQuantity(LinkedList order, LinkedList food, Node * orderItem) {
 	pause();
 }
 
-void checkout() {
+void checkout(LinkedList order, LinkedList food) {
+	char choice;
+	Node * i, * foodItem;
+
 	cls();
 	header();
 	printf("- Checkout -\n\n");
 
-	// TODO: List traversal.
+	if (listEmpty(order)) {
+		printf("Nothing has been ordered.\n");
+		pause();
 
-	// Dummy data once more.
+		return;
+	}
 
-	printf("Name\tCode\tPrice\tQty\tCost\n");
-	printf("Order 1 \t %4.2f\n", 1000.0);
-	printf("Order 2 \t %4.2f\n", 20.0);
-	printf("Order 3 \t %4.2f\n", 30.0);
-	printf("Total: %4.2f\n", 1050.0);
-	printf("\n");
+	viewOrders(order, 0);
+
+	getYesOrNo("Checkout orders? ", &choice);
+	if (choice == 'y') {
+		for (i = (order.head)->next; i != order.tail; i = i->next) {
+			foodItem = searchByCode(food, i->code);
+			foodItem->count -= i->count;
+			deleteNode(i);
+		}
+
+		printf("Orders successfully checked out.\n");
+	}
 
 	pause();
 }
