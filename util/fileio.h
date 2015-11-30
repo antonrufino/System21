@@ -4,6 +4,7 @@
 #include "util.h"
 #include "linked-list.h"
 
+// Save data contained by list to file.
 void save(LinkedList list) {
 	FILE * fp = fopen("data.txt", "w");
 	Node * i;
@@ -26,6 +27,7 @@ void save(LinkedList list) {
 	printf("Food data saved.\n");
 }
 
+// Load data from file to list.
 void load(LinkedList list) {
 	FILE * fp = fopen("data.txt", "r");
 	char name[33], code[17], category[17];
@@ -55,6 +57,9 @@ void load(LinkedList list) {
 
 		addNode(list, name, code, category, count, price);
 	}
+
+	// Delete extra node in list caused by trailing newline character
+	// in file.
 	deleteNode((list.tail)->prev);
 
 	fclose(fp);

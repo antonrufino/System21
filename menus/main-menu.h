@@ -12,6 +12,7 @@
 #include "food-menu.h"
 #include "order-menu.h"
 
+// Prints menu.
 void printMainMenu() {
 	printf("1. Update Fast food Menu\n");
 	printf("2. Take Order\n");
@@ -20,6 +21,7 @@ void printMainMenu() {
 	printf("Choice: ");
 }
 
+// Gets input from user and transfers to control to the appropriate submenu.
 void mainMenu(LinkedList food, LinkedList order) {
 	int choice;
 

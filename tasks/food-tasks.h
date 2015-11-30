@@ -3,6 +3,9 @@
 // This file implements the tasks listed in the food menu. //
 /////////////////////////////////////////////////////////////
 
+// NOTE: In this file, a parameter named order refers to LinkedList containing
+// data regarding available food.
+
 #ifndef FOOD_TASKS
 #define FOOD_TASKS
 
@@ -20,6 +23,8 @@ void addFoodItem(LinkedList food) {
 	printf("- Add Food Item -\n\n");
 
 	getString("Food item name: ", 32, name);
+
+	// Make sure name is unique.
 	if (searchByName(food, name) != NULL) {
 		printf("\n");
 		printf("Food item with same name already exists.\n");
@@ -29,6 +34,8 @@ void addFoodItem(LinkedList food) {
 	}
 
 	getString("Food item code: ", 16, code);
+
+	// Make sure code is unique.
 	if (searchByCode(food, code) != NULL) {
 		printf("\n");
 		printf("Food item with same code already exists.\n");
@@ -41,6 +48,7 @@ void addFoodItem(LinkedList food) {
 	getFloat("Food item price: ", &price);
 	getCategory("Food item category:", &category, 0);
 
+	// Add order to list.
 	addNode(food, name, code, intToCategory(category), count, price);
 
 	printf("\n");
@@ -48,6 +56,7 @@ void addFoodItem(LinkedList food) {
 	pause();
 }
 
+// Removes food item from list.
 void removeFoodItem(LinkedList food) {
 	char code[17];
 	char choice;
@@ -57,6 +66,7 @@ void removeFoodItem(LinkedList food) {
 	header();
 	printf("- Remove Food Item -\n\n");
 
+	// Make sure list is not empty before proceeding.
 	if (listEmpty(food)) {
 		printf("No food in stock.\n");
 		pause();
@@ -65,25 +75,27 @@ void removeFoodItem(LinkedList food) {
 
 	getString("Food item code: ", 16, code);
 
+	// Check if item being deleted exists.
 	del = searchByCode(food, code);
 	if (del != NULL) {
-		printf("Are you sure you want to remove item? (y/n) ");
-		scanf("%c", &choice);
-		getchar();
+		// Check if user is sure.
+		getYesOrNo("Are you sure you want to remove item?", &choice);
 
+		// If yes, delete order.
 		if (choice == 'y') {
 			deleteNode(del);
 
 			printf("\n");
 			printf("Food item %s successfully removed!\n", code);
 		}
-	} else {
+	} else { // Food item to be deleted does not exist.
 		printf("\n");
 		printf("Food item not found.\n");
 	}
 	pause();
 }
 
+// Changes price of food item.
 void updateFoodPrice(LinkedList food) {
 	char code[17];
 	float newPrice;
@@ -93,6 +105,7 @@ void updateFoodPrice(LinkedList food) {
 	header();
 	printf("- Update Food Price -\n\n");
 
+	// Make sure list is not empty.
 	if (listEmpty(food)) {
 		printf("No food in stock.\n");
 		pause();
@@ -101,16 +114,17 @@ void updateFoodPrice(LinkedList food) {
 
 	getString("Food item code: ", 16, code);
 
+	// Make sure food item to be modified exists.
 	foodItem = searchByCode(food, code);
-	if (foodItem != NULL) {
+	if (foodItem != NULL) { // Food item exists.
 		printf("Food item %s found!\n", code);
 
 		printf("\n");
 		getFloat("New price: ", &newPrice);
 
-		foodItem->price = newPrice;
+		foodItem->price = newPrice; // Modify price.
 		printf("Food item %s sucessfully updated!\n", code);
-	} else {
+	} else { // Food item does not exist.
 		printf("\n");
 		printf("Food item not found.\n");
 	}
@@ -118,6 +132,7 @@ void updateFoodPrice(LinkedList food) {
 	pause();
 }
 
+// Changes count of food item. Similar to updateFoodPrice.
 void updateFoodCount(LinkedList food) {
 	char code[17];
 	int newCount;
@@ -152,6 +167,7 @@ void updateFoodCount(LinkedList food) {
 	pause();
 }
 
+// Change category of food item.
 void updateFoodCategory(LinkedList food) {
 	char code[17];
 	int newCategory;
@@ -174,7 +190,11 @@ void updateFoodCategory(LinkedList food) {
 	if (foodItem != NULL) {
 		getCategory("New food category: ", &newCategory, 0);
 
+		// Make sure new category is not the same as old category.
 		if (strcmp(foodItem->category, intToCategory(newCategory)) != 0) {
+			// Category of food item is "changed" by first adding a new food
+			// item with the same data but with the new category. The food
+			// item with the old category is then deleted.
 			addNode(food, foodItem->name, foodItem->code, intToCategory(newCategory), foodItem->count, foodItem->price);
 			deleteNode(foodItem);
 
@@ -192,6 +212,11 @@ void updateFoodCategory(LinkedList food) {
 	pause();
 }
 
+// Views food items. Lets user view only a single category.
+//
+// Extra paramerter
+// inStock: Set to 1 if only food that is in stock (count > 0) should be shown.
+// Set to 0 otherwise.
 void viewFoodItems(LinkedList food, int inStock) {
 	int category;
 	Node * i;

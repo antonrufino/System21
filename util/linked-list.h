@@ -1,3 +1,8 @@
+//////////////////////////////////////////////////////////////////////////
+// linked-list.h                                                        //
+// Contains all linked list related operations used by the application. //
+//////////////////////////////////////////////////////////////////////////
+
 #ifndef LINKED_LIST
 #define LINKED_LIST
 
@@ -5,6 +10,7 @@
 #include <string.h>
 #include "util.h"
 
+// Node structure.
 typedef struct NODE_TAG {
 	char name[33], code[17], category[17];
 	int count;
@@ -13,11 +19,13 @@ typedef struct NODE_TAG {
 	struct NODE_TAG * next;
 } Node;
 
+// Linked list structure
 typedef struct LINKED_LIST_TAG {
 	Node * head;
 	Node * tail;
 } LinkedList;
 
+// Initializes a doubly linked list with dummy nodes.
 void initLinkedList(LinkedList * ll) {
 	ll->head = (Node *) malloc(sizeof(Node));
 	ll->tail = (Node *) malloc(sizeof(Node));
@@ -29,6 +37,7 @@ void initLinkedList(LinkedList * ll) {
 	ll->tail->next = NULL;
 }
 
+// Add a node to ll with given info.
 void addNode(LinkedList ll, char name[], char code[], char category[],
 	int count, float price) {
 	Node * nn = (Node *) malloc(sizeof(Node));
@@ -49,6 +58,9 @@ void addNode(LinkedList ll, char name[], char code[], char category[],
 	i->next = nn;
 }
 
+// Searches ll for a node with same name.
+// Return value: Pointer to node with same name. Returns NULL if
+// it doesn't exist.
 Node * searchByName(LinkedList ll, char name[]) {
 	Node * i;
 	for (i = (ll.head)->next; i != ll.tail; i = i->next)
@@ -56,6 +68,9 @@ Node * searchByName(LinkedList ll, char name[]) {
 	return NULL;
 }
 
+// Searches ll for a node with same code.
+// Return value: Pointer to node with same code. Null if
+// it doesn't exist.
 Node * searchByCode(LinkedList ll, char code[]) {
 	Node * i;
 	for (i = (ll.head)->next; i != ll.tail; i = i->next)
@@ -63,17 +78,21 @@ Node * searchByCode(LinkedList ll, char code[]) {
 	return NULL;
 }
 
+// Deletes node pointed to by del from whatever list it belongs to.
 void deleteNode(Node * del) {
 	del->prev->next = del->next;
 	del->next->prev = del->prev;
 	free(del);
 }
 
+// Delete all nodes except dummy nodes from list ll.
 void deleteList(LinkedList ll) {
 	while ((ll.head)->next != ll.tail)
 		deleteNode((ll.head)->next);
 }
 
+// Deletes dummy nodes from list ll.
+// It is advised not to call this function without first calling deleteList.
 void freeDummies(LinkedList * ll) {
 	free(ll->head);
 	free(ll->tail);
@@ -82,6 +101,7 @@ void freeDummies(LinkedList * ll) {
 	ll->tail = NULL;
 }
 
+// Checks if a list is empyt i.e. it cointains only its dummy nodes.
 int listEmpty(LinkedList ll) {
 	return (ll.head)->next == ll.tail;
 }

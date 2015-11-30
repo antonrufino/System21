@@ -1,3 +1,9 @@
+///////////////////////////////
+// ffs.c                     //
+// Main file of application. //
+///////////////////////////////
+
+
 #include "menus/main-menu.h"
 #include "util/linked-list.h"
 #include "util/fileio.h"
@@ -10,11 +16,14 @@ int main() {
 	initLinkedList(&food);
 	initLinkedList(&order);
 
+	// Load data.
 	load(food);
 
+	// Run main menu.
 	mainMenu(food, order);
 	cls();
 
+	// Save changes.
 	save(food);
 
 	// Delete middle nodes.

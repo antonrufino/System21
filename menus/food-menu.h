@@ -4,6 +4,7 @@
 #include "../util/util.h"
 #include "../tasks/food-tasks.h"
 
+// Prints menu. 
 void printFoodMenu() {
 	printf("1. Add Food Item\n");
 	printf("2. Remove Food Item\n");
@@ -16,6 +17,8 @@ void printFoodMenu() {
 	printf("Choice: ");
 }
 
+// Handles collection of user input and calling of appropriate function to
+// handle a task.
 void foodMenu(LinkedList food) {
 	int choice;
 

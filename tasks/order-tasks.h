@@ -3,6 +3,10 @@
 // Implements tasks specified in order menu. //
 ///////////////////////////////////////////////
 
+// NOTE: In this file, a parameter named order refers to LinkedList containing
+// data regarding customer's order while a parameter named food contains data
+// about available food.
+
 #ifndef ORDER_TASKS
 #define ORDER_TASKS
 
@@ -10,13 +14,8 @@
 #include "../util/linked-list.h"
 #include "food-tasks.h"
 
-void addOrder(LinkedList order, LinkedList food);
-void viewFastFood(LinkedList food);
-void removeOrder(LinkedList order);
-void viewOrders(LinkedList order, int showHeader);
-void cancelOrder(LinkedList order);
+// Needed for addOrder to work.
 void editQuantity(LinkedList order, LinkedList food, Node * orderItem);
-void checkout(LinkedList order, LinkedList food);
 
 // Facilitates Add Order task
 void addOrder(LinkedList order, LinkedList food) {
@@ -38,6 +37,7 @@ void addOrder(LinkedList order, LinkedList food) {
 		orderItem = searchByCode(order, query);
 	}
 
+	// An existing order has been found. Offer user to modify existing order.
 	if (orderItem != NULL) {
 		getYesOrNo("Order for same item already exists. Change number of orders for existing item?", &choice);
 
@@ -50,8 +50,8 @@ void addOrder(LinkedList order, LinkedList food) {
 		return;
 	}
 
-	// List will first be searched by product name. If there is no product
-	// given name, list will be searched by code.
+	// Look for matching item in fast food menu if nothing that matches query
+	// has been ordered.
 	foodItem = searchByName(food, query);
 	if (foodItem == NULL) {
 		foodItem = searchByCode(food, query);
@@ -67,6 +67,7 @@ void addOrder(LinkedList order, LinkedList food) {
 	printf("Food item %s found!\n", query);
 	getInt("Enter number of orders for item: ", &numOrders);
 
+	// Make sure there is enough food in stock for order.
 	if (numOrders > foodItem->count) {
 		printf("Not enough of %s in stock.\n", foodItem->name);
 		pause();
@@ -74,6 +75,7 @@ void addOrder(LinkedList order, LinkedList food) {
 		return;
 	}
 
+	// Add order to list of orders.
 	addNode(order, foodItem->name, foodItem->code, foodItem->category, numOrders, foodItem->price);
 
 	printf("\n");
@@ -100,6 +102,7 @@ void removeOrder(LinkedList order) {
 	header();
 	printf("- Remove Order -\n\n");
 
+	// Check if list is empty.
 	if (listEmpty(order)) {
 		printf("Nothing has been ordered.\n");
 		pause();
@@ -115,6 +118,9 @@ void removeOrder(LinkedList order) {
 		orderItem = searchByCode(order, query);
 	}
 
+	// If order exists, ask user if he is sure with what he's doing.
+	// If yes, delete order from list.
+	// Else, finish function.
 	if (orderItem != NULL) {
 		getYesOrNo("Are you sure you want to remove order?", &choice);
 
@@ -129,16 +135,23 @@ void removeOrder(LinkedList order) {
 	pause();
 }
 
+// View all orders.
+//
+// Extra parameters
+// showHeader: Set to 1 if header and pause should be shown. 0 otherwise.
+// Needed for checkout function.
 void viewOrders(LinkedList order, int showHeader) {
 	float totalCost = 0.0, cost;
 	Node * i;
 
+	// Should we be showing the header?
 	if (showHeader) {
 		cls();
 		header();
 		printf("- View Orders -\n\n");
 	}
 
+	// Make sure list is not empty before proceeding.
 	if (listEmpty(order)) {
 		printf("Nothing has been ordered.\n");
 		pause();
@@ -146,6 +159,7 @@ void viewOrders(LinkedList order, int showHeader) {
 		return;
 	}
 
+	// Prints all orders together with total cost.
 	printf("Name\tCode\tPrice\tQty\tCost\n");
 	for (i = (order.head)->next; i != order.tail; i = i->next) {
 		cost = i->price * i->count;
@@ -156,6 +170,7 @@ void viewOrders(LinkedList order, int showHeader) {
 
 	printf("\n");
 
+	// Should we be showing pause message?
 	if (showHeader) pause();
 }
 
@@ -167,6 +182,7 @@ void cancelOrder(LinkedList order) {
 	header();
 	printf("- Cancel Order -\n\n");
 
+	// Check if anything has been ordered.
 	if (listEmpty(order)) {
 		printf("Nothing has been ordered.\n");
 		pause();
@@ -174,8 +190,10 @@ void cancelOrder(LinkedList order) {
 		return;
 	}
 
+	// Make sure user knows what he is doing.
 	getYesOrNo("Are you sure you want to cancel your order?", &choice);
 
+	// If yes, delete everything.
 	printf("\n");
 	if (choice == 'y') {
 		deleteList(order);
@@ -184,17 +202,22 @@ void cancelOrder(LinkedList order) {
 	pause();
 }
 
-// Update qty of food item in order.
+// Update qunatity of food item in order.
+//
+// Extra parameters
+// orderItem: The order to be modified. Added for addOrder function.
 void editQuantity(LinkedList order, LinkedList food, Node * orderItem) {
 	char code[17];
 	int newQty;
 	Node * foodItem;
 
+	// If orderItem does not exist, ask user for order to delete.
 	if (orderItem == NULL) {
 		cls();
 		header();
 		printf("- Edit Quantity -\n\n");
 
+		// Make sure there is an order.
 		if (listEmpty(order)) {
 			printf("Nothing has been ordered.\n");
 			pause();
@@ -202,9 +225,11 @@ void editQuantity(LinkedList order, LinkedList food, Node * orderItem) {
 			return;
 		}
 
+		// Get code of item to delete.
 		getString("Food item code: ", 16, code);
 		orderItem = searchByCode(order, code);
 
+		// Order does not exist.
 		if (orderItem == NULL) {
 			printf("\n");
 			printf("Item has not been ordered.\n");
@@ -214,10 +239,10 @@ void editQuantity(LinkedList order, LinkedList food, Node * orderItem) {
 		}
 	}
 
-	// If code exists then
 	getInt("New quantity: ", &newQty);
 	foodItem = searchByCode(food, orderItem->code);
 
+	// Make sure there is enough food in stock for new order.
 	if (newQty > foodItem->count) {
 		printf("\n");
 		printf("Not enough of item in stock.\n");
@@ -232,6 +257,7 @@ void editQuantity(LinkedList order, LinkedList food, Node * orderItem) {
 	pause();
 }
 
+// Checkout order.
 void checkout(LinkedList order, LinkedList food) {
 	char choice;
 	Node * i, * foodItem;
@@ -240,6 +266,7 @@ void checkout(LinkedList order, LinkedList food) {
 	header();
 	printf("- Checkout -\n\n");
 
+	// Make sure there is an order to checkout.
 	if (listEmpty(order)) {
 		printf("Nothing has been ordered.\n");
 		pause();
@@ -247,10 +274,15 @@ void checkout(LinkedList order, LinkedList food) {
 		return;
 	}
 
+	// View all orders together with total cost.
+	// Second argument (showHeader) set to 0 to prevent the
+	// current header from changing.
 	viewOrders(order, 0);
 
+	// Check if user is sure with what he is doing.
 	getYesOrNo("Checkout orders? ", &choice);
 	if (choice == 'y') {
+		// Modify info on food stocks.
 		for (i = (order.head)->next; i != order.tail; i = i->next) {
 			foodItem = searchByCode(food, i->code);
 			foodItem->count -= i->count;

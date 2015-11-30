@@ -12,6 +12,7 @@
 
 #include "../tasks/order-tasks.h"
 
+// Prints menu.
 void printOrderMenu() {
 	printf("1. Add order\n");
 	printf("2. View fastfood menu\n");
@@ -25,6 +26,8 @@ void printOrderMenu() {
 	printf("Choice: ");
 }
 
+// Handles collection of user input and calling of appropriate function to
+// handle a task.
 void orderMenu(LinkedList order, LinkedList food) {
 	int choice;
 
