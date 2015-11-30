@@ -217,9 +217,10 @@ void updateFoodCategory(LinkedList food) {
 // Extra paramerter
 // inStock: Set to 1 if only food that is in stock (count > 0) should be shown.
 // Set to 0 otherwise.
-void viewFoodItems(LinkedList food, int inStock) {
-	int category;
-	Node * i;
+// order: List of orders. Used only for view fast food items in order submenu.
+void viewFoodItems(LinkedList food, LinkedList order, int inStock) {
+	int category, count;
+	Node * i, * orderItem;
 
 	if (!inStock) {
 		cls();
@@ -233,8 +234,16 @@ void viewFoodItems(LinkedList food, int inStock) {
 		printf("\n");
 		printf("CODE\tNAME\tPRICE\tQTY\tCATEGORY\n");
 		for (i = (food.head)->next; i != food.tail; i = i->next) {
-			if ((categoryToInt(i->category) == category || category == 0) && (i->count > 0 || !inStock))
-				printf("%s\t%s\t%.2f\t%d\t%s\n", i->code, i->name, i->price, i->count, i->category);
+			count = i->count;
+			if (inStock) {
+				orderItem = searchByCode(order, i->code);
+				if (orderItem != NULL) {
+					count -= orderItem->count;
+				}
+			}
+
+			if ((categoryToInt(i->category) == category || category == 0) && (count > 0 || !inStock))
+				printf("%s\t%s\t%.2f\t%d\t%s\n", i->code, i->name, i->price, count, i->category);
 		}
 	} else {
 		printf("No food in stock.");

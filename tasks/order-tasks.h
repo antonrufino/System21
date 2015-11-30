@@ -84,12 +84,12 @@ void addOrder(LinkedList order, LinkedList food) {
 }
 
 // Handles viewing of food items in stock
-void viewFastFood(LinkedList food) {
+void viewFastFood(LinkedList order, LinkedList food) {
 	cls();
 	header();
 	printf("- View Fast Food Menu -\n\n");
 
-	viewFoodItems(food, 1);
+	viewFoodItems(food, order, 1);
 }
 
 // Asks for food item code and removes food item with matching code

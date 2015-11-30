@@ -30,10 +30,14 @@ void mainMenu(LinkedList food, LinkedList order) {
 		header();
 		printMainMenu();
 		scanf("%d", &choice);
+		getchar();
 
-		if (choice == 1) foodMenu(food);
+		if (choice == 1) foodMenu(food, order);
 		else if (choice == 2) orderMenu(order, food);
-		else if (choice != 3) printf("Not a valid choice.\n");
+		else if (choice != 3) {
+			printf("Not a valid choice.\n");
+			pause();
+		}
 	} while (choice != 3);
 }
 

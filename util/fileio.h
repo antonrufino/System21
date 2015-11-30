@@ -11,6 +11,7 @@ void save(LinkedList list) {
 
 	if (fp == NULL) {
 		printf("Save file cannot be opened.\n");
+		pause();
 		return;
 	}
 
@@ -36,6 +37,7 @@ void load(LinkedList list) {
 
 	if (fp == NULL) {
 		printf("Save file does not exist. One will be created upon exiting the program.\n");
+		pause();
 		return;
 	}
 
