@@ -36,7 +36,7 @@ void orderMenu(LinkedList order, LinkedList food) {
 		getchar();
 
 		if (choice == 1) addOrder(order, food);
-		else if (choice == 2) viewFastFood();
+		else if (choice == 2) viewFastFood(food);
 		else if (choice == 3) removeOrder();
 		else if (choice == 4) viewOrders(order);
 		else if (choice == 5) cancelOrder();

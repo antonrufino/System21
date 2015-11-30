@@ -8,9 +8,10 @@
 
 #include "../util/util.h"
 #include "../util/linked-list.h"
+#include "food-tasks.h"
 
 void addOrder(LinkedList order, LinkedList food);
-void viewFastFood();
+void viewFastFood(LinkedList food);
 void removeOrder();
 void viewOrders(LinkedList order);
 void cancelOrder();
@@ -82,20 +83,12 @@ void addOrder(LinkedList order, LinkedList food) {
 }
 
 // Handles viewing of food items in stock
-void viewFastFood() {
-	char category[17];
-
+void viewFastFood(LinkedList food) {
 	cls();
 	header();
 	printf("- View Fast Food Menu -\n\n");
 
-	printf("Food item category: ");
-	fgets(category, 16, stdin);
-	trim(category);
-
-	// TODO: Traverse list. Print only those with matching category.
-	printf("FOOD ITEMS IN STOCK COMING SOON...\n");
-	pause();
+	viewFoodItems(food, 1);
 }
 
 // Asks for food item code and removes food item with matching code

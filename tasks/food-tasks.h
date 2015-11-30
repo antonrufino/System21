@@ -192,13 +192,15 @@ void updateFoodCategory(LinkedList food) {
 	pause();
 }
 
-void viewFoodItems(LinkedList food) {
+void viewFoodItems(LinkedList food, int inStock) {
 	int category;
 	Node * i;
 
-	cls();
-	header();
-	printf("- View Food Items -\n\n");
+	if (inStock) {
+		cls();
+		header();
+		printf("- View Food Items -\n\n");
+	}
 
 	if (!listEmpty(food)) {
 		getCategory("Food item category (Enter 0 to view all):", &category);
@@ -206,7 +208,7 @@ void viewFoodItems(LinkedList food) {
 		printf("\n");
 		printf("CODE\tNAME\tPRICE\tQTY\tCATEGORY\n");
 		for (i = (food.head)->next; i != food.tail; i = i->next) {
-			if (categoryToInt(i->category) == category || category == 0)
+			if ((categoryToInt(i->category) == category || category == 0) && (i->count > 0 || !inStock))
 				printf("%s\t%s\t%.2f\t%d\t%s\n", i->code, i->name, i->price, i->count, i->category);
 		}
 	} else {
