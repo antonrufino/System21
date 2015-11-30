@@ -196,7 +196,7 @@ void viewFoodItems(LinkedList food, int inStock) {
 	int category;
 	Node * i;
 
-	if (inStock) {
+	if (!inStock) {
 		cls();
 		header();
 		printf("- View Food Items -\n\n");

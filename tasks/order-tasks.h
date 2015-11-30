@@ -14,7 +14,7 @@ void addOrder(LinkedList order, LinkedList food);
 void viewFastFood(LinkedList food);
 void removeOrder();
 void viewOrders(LinkedList order);
-void cancelOrder();
+void cancelOrder(LinkedList order);
 void editQuantity(LinkedList order, LinkedList food, Node * orderItem);
 void checkout();
 
@@ -147,22 +147,20 @@ void viewOrders(LinkedList order) {
 }
 
 // Handles cancelling of entire order.
-void cancelOrder() {
+void cancelOrder(LinkedList order) {
 	char choice;
 
 	cls();
 	header();
 	printf("- Cancel Order -\n\n");
 
-	printf("Are you sure you want to cancel your order? (y/n) ");
-	scanf("%c", &choice);
-	getchar();
+	getYesOrNo("Are you sure you want to cancel your order?", &choice);
 
 	printf("\n");
-	if (choice == 'y')
-		// TODO: Delete everything in list except dummy nodes.
+	if (choice == 'y') {
+		deleteList(order);
 		printf("All orders cancelled.\n");
-
+	}
 	pause();
 }
 
