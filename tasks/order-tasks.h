@@ -12,7 +12,7 @@
 
 void addOrder(LinkedList order, LinkedList food);
 void viewFastFood(LinkedList food);
-void removeOrder();
+void removeOrder(LinkedList order);
 void viewOrders(LinkedList order);
 void cancelOrder(LinkedList order);
 void editQuantity(LinkedList order, LinkedList food, Node * orderItem);
@@ -92,30 +92,40 @@ void viewFastFood(LinkedList food) {
 
 // Asks for food item code and removes food item with matching code
 // from order.
-void removeOrder() {
-	char code[17], choice;
+void removeOrder(LinkedList order) {
+	char query[33], choice;
+	Node * orderItem;
 
 	cls();
 	header();
 	printf("- Remove Order -\n\n");
 
-	printf("Food item code: ");
-	fgets(code, 16, stdin);
-	trim(code);
+	if (listEmpty(order)) {
+		printf("Nothing has been ordered.\n");
+		pause();
 
-	// TODO: Search for food item with given code.
-	// Stop task if nothing found.
+		return;
+	}
 
-	printf("Are you sure you want to remove %s from the orders? (y/n) ", "Burger");
-	scanf("%c", &choice);
-	getchar();
+	getString("Enter food item name or code: ", 32, query);
 
-	printf("\n");
-	if (choice == 'y')
-		// TODO: Remove node.
-		// TODO: Update stock info.
-		printf("%s removed from order.\n", "Burger");
+	// Check if order with existing name or code exists.
+	orderItem = searchByName(order, query);
+	if (orderItem == NULL) {
+		orderItem = searchByCode(order, query);
+	}
 
+	if (orderItem != NULL) {
+		getYesOrNo("Are you sure you want to remove order?", &choice);
+
+		printf("\n");
+		if (choice == 'y') {
+			deleteNode(orderItem);
+			printf("Item successfully removed from order.\n");
+		}
+	} else {
+		printf("This item has not been ordered.\n");
+	}
 	pause();
 }
 
@@ -174,6 +184,13 @@ void editQuantity(LinkedList order, LinkedList food, Node * orderItem) {
 		cls();
 		header();
 		printf("- Edit Quantity -\n\n");
+
+		if (listEmpty(order)) {
+			printf("Nothing has been ordered.\n");
+			pause();
+
+			return;
+		}
 
 		getString("Food item code: ", 16, code);
 		orderItem = searchByCode(order, code);
