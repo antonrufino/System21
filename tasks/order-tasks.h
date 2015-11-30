@@ -9,36 +9,75 @@
 #include "../util/util.h"
 #include "../util/linked-list.h"
 
+void addOrder(LinkedList order, LinkedList food);
+void viewFastFood();
+void removeOrder();
+void viewOrders(LinkedList order);
+void cancelOrder();
+void editQuantity(LinkedList order, LinkedList food, Node * orderItem);
+void checkout();
+
 // Facilitates Add Order task
-void addOrder() {
+void addOrder(LinkedList order, LinkedList food) {
 	int numOrders;
 	char query[33];
+	char choice;
+	Node * orderItem;
+	Node * foodItem;
 
 	cls();
 	header();
 	printf("- Add Order -\n\n");
 
-	printf("Enter food item name or code: ");
-	fgets(query, 32, stdin);
-	trim(query);
+	getString("Enter food item name or code: ", 32, query);
 
-	// TODO: Implement search here.
+	// Check if order with existing name or code exists.
+	orderItem = searchByName(order, query);
+	if (orderItem == NULL) {
+		orderItem = searchByCode(order, query);
+	}
+
+	if (orderItem != NULL) {
+		getYesOrNo("Order for same item already exists. Change number of orders for existing item?", &choice);
+
+		if (choice == 'y') {
+			editQuantity(order, food, orderItem);
+		} else {
+			pause();
+		}
+
+		return;
+	}
+
 	// List will first be searched by product name. If there is no product
 	// given name, list will be searched by code.
+	foodItem = searchByName(food, query);
+	if (foodItem == NULL) {
+		foodItem = searchByCode(food, query);
+		if (foodItem == NULL) {
+			printf("Food item not found.\n");
+			pause();
 
-	// IDEA: If existing order found, update order instead of showing error.
+			return;
+		}
+	}
 
 	printf("\n");
 	printf("Food item %s found!\n", query);
-	printf("Enter number of orders for %s: ", query);
-	scanf("%d", &numOrders);
-	getchar();
+	getInt("Enter number of orders for item: ", &numOrders);
 
-	// TODO: Implement adding of node to list with given data.
-	// TODO: Update stock info
+	if (numOrders > foodItem->count) {
+		printf("Not enough of %s in stock.\n", foodItem->name);
+		pause();
+
+		return;
+	}
+
+	addNode(order, foodItem->name, foodItem->code, foodItem->category, numOrders, foodItem->price);
+	foodItem->count -= numOrders;
 
 	printf("\n");
-	printf("You ordered %s with quantity of %d\n", query, numOrders);
+	printf("You ordered %s with quantity of %d\n", foodItem->name, numOrders);
 	pause();
 }
 
@@ -88,20 +127,30 @@ void removeOrder() {
 	pause();
 }
 
-void viewOrders() {
+void viewOrders(LinkedList order) {
+	float totalCost = 0.0, cost;
+	Node * i;
+
 	cls();
 	header();
 	printf("- View Orders -\n\n");
 
-	// TODO: Replace this with actual data by printing nodes in order list.
+	if (listEmpty(order)) {
+		printf("Nothing has been ordered.\n");
+		pause();
 
-	// Dummy data.
-	printf("Order 1 \t %4.2f\n", 1000.0);
-	printf("Order 2 \t %4.2f\n", 20.0);
-	printf("Order 3 \t %4.2f\n", 30.0);
-	printf("Total: %4.2f\n", 1050.0);
+		return;
+	}
+
+	printf("Name\tCode\tPrice\tQty\tCost\n");
+	for (i = (order.head)->next; i != order.tail; i = i->next) {
+		cost = i->price * i->count;
+		printf("%s\t%s\t%4.2f\t%d\t%4.2f\n", i->name, i->code, i->price, i->count, cost);
+		totalCost += cost;
+	}
+	printf("Total cost: %4.2f\n", totalCost);
+
 	printf("\n");
-
 	pause();
 }
 
@@ -126,24 +175,33 @@ void cancelOrder() {
 }
 
 // Update qty of food item in order.
-void editQuantity() {
+void editQuantity(LinkedList order, LinkedList food, Node * orderItem) {
 	char code[17];
 	int newQty;
+	Node * foodItem;
 
-	cls();
-	header();
-	printf("- Edit Quantity -\n\n");
+	if (orderItem == NULL) {
+		cls();
+		header();
+		printf("- Edit Quantity -\n\n");
 
-	printf("Food item code: ");
-	fgets(code, 16, stdin);
-	trim(code);
+		getString("Food item code: ", 16, code);
+		orderItem = searchByCode(order, code);
 
-	// TODO: Search by food item code.
+		if (orderItem == NULL) {
+			printf("Item has not been ordered.\n");
+			pause();
+
+			return;
+		}
+	}
 
 	// If code exists then
-	printf("New quantity: ");
-	scanf("%d", &newQty);
-	getchar();
+	getInt("New quantity: ", &newQty);
+
+	foodItem = searchByCode(food, orderItem->code);
+	foodItem->count += orderItem->count - newQty;
+	orderItem->count = newQty;
 
 	printf("\n");
 	printf("Order successfully updated.\n");
@@ -158,6 +216,8 @@ void checkout() {
 	// TODO: List traversal.
 
 	// Dummy data once more.
+
+	printf("Name\tCode\tPrice\tQty\tCost\n");
 	printf("Order 1 \t %4.2f\n", 1000.0);
 	printf("Order 2 \t %4.2f\n", 20.0);
 	printf("Order 3 \t %4.2f\n", 30.0);

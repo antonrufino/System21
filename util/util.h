@@ -88,4 +88,10 @@ void getCategory(const char * prompt, int * category) {
 	getchar();
 }
 
+void getYesOrNo(const char * prompt, char * choice) {
+	printf("%s (y/n) ", prompt);
+	scanf("%c", choice);
+	getchar();
+}
+
 #endif
