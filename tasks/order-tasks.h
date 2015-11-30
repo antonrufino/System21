@@ -75,7 +75,6 @@ void addOrder(LinkedList order, LinkedList food) {
 	}
 
 	addNode(order, foodItem->name, foodItem->code, foodItem->category, numOrders, foodItem->price);
-	foodItem->count -= numOrders;
 
 	printf("\n");
 	printf("You ordered %s with quantity of %d\n", foodItem->name, numOrders);
@@ -182,6 +181,7 @@ void editQuantity(LinkedList order, LinkedList food, Node * orderItem) {
 		orderItem = searchByCode(order, code);
 
 		if (orderItem == NULL) {
+			printf("\n");
 			printf("Item has not been ordered.\n");
 			pause();
 
@@ -191,13 +191,19 @@ void editQuantity(LinkedList order, LinkedList food, Node * orderItem) {
 
 	// If code exists then
 	getInt("New quantity: ", &newQty);
-
 	foodItem = searchByCode(food, orderItem->code);
-	foodItem->count += orderItem->count - newQty;
-	orderItem->count = newQty;
 
-	printf("\n");
-	printf("Order successfully updated.\n");
+	if (newQty > foodItem->count) {
+		printf("\n");
+		printf("Not enough of item in stock.\n");
+		printf("Order will remain unchanged.\n");
+	} else {
+		orderItem->count = newQty;
+
+		printf("\n");
+		printf("Order successfully updated.\n");
+	}
+
 	pause();
 }
 
