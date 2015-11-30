@@ -1,5 +1,6 @@
 #include "menus/main-menu.h"
 #include "util/linked-list.h"
+#include "util/fileio.h"
 
 int main() {
 	LinkedList food;
@@ -8,13 +9,13 @@ int main() {
 	// Initialize dummy nodes.
 	initLinkedList(&food);
 	initLinkedList(&order);
-	// TODO: Load data from file.
+
+	load(food);
 
 	mainMenu(food, order);
 	cls();
 
-	// TODO: Save data to file.
-	// TODO: Delete nodes in linked list.
+	save(food);
 
 	// Delete middle nodes.
 	deleteList(food);

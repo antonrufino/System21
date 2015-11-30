@@ -63,19 +63,33 @@ void getString(const char * prompt, int strlen, char name[]) {
 	trim(name);
 }
 
-void getInt(const char * prompt, int * count) {
+void getInt(const char * prompt, int * out) {
 	printf("%s", prompt);
-	scanf("%d", count);
+	scanf("%d", out);
 	getchar();
+
+	while (*out < 0) {
+		printf("Input should not be below 0. Try again.\n");
+		printf("%s", prompt);
+		scanf("%d", out);
+		getchar();
+	}
 }
 
-void getFloat(const char * prompt, float * price) {
+void getFloat(const char * prompt, float * out) {
 	printf("%s", prompt);
-	scanf("%f", price);
+	scanf("%f", out);
 	getchar();
+
+	while (*out < 0) {
+		printf("Input should not be below 0. Try again.\n");
+		printf("%s", prompt);
+		scanf("%f", out);
+		getchar();
+	}
 }
 
-void getCategory(const char * prompt, int * category) {
+void getCategory(const char * prompt, int * category, int allowZero) {
 	printf("%s\n", prompt);
 	printf("1. Appetizer\n");
 	printf("2. Main course\n");
@@ -86,12 +100,26 @@ void getCategory(const char * prompt, int * category) {
 	printf("Choice: ");
 	scanf("%d", category);
 	getchar();
+
+	while ((*category < 1 && !(*category == 0 && allowZero)) || *category > 4) {
+		printf("Invalid input. Try again.\n");
+		printf("Choice: ");
+		scanf("%d", category);
+		getchar();
+	}
 }
 
 void getYesOrNo(const char * prompt, char * choice) {
 	printf("%s (y/n) ", prompt);
 	scanf("%c", choice);
 	getchar();
+
+	while (*choice != 'y' && *choice != 'n') {
+		printf("Invalid input. Enter only y or n.\n");
+		printf("%s (y/n) ", prompt);
+		scanf("%c", choice);
+		getchar();
+	}
 }
 
 #endif

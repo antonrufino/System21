@@ -39,7 +39,7 @@ void addFoodItem(LinkedList food) {
 
 	getInt("Food item count: ", &count);
 	getFloat("Food item price: ", &price);
-	getCategory("Food item category:", &category);
+	getCategory("Food item category:", &category, 0);
 
 	addNode(food, name, code, intToCategory(category), count, price);
 
@@ -172,7 +172,7 @@ void updateFoodCategory(LinkedList food) {
 	foodItem = searchByCode(food, code);
 
 	if (foodItem != NULL) {
-		getCategory("New food category: ", &newCategory);
+		getCategory("New food category: ", &newCategory, 0);
 
 		if (strcmp(foodItem->category, intToCategory(newCategory)) != 0) {
 			addNode(food, foodItem->name, foodItem->code, intToCategory(newCategory), foodItem->count, foodItem->price);
@@ -203,7 +203,7 @@ void viewFoodItems(LinkedList food, int inStock) {
 	}
 
 	if (!listEmpty(food)) {
-		getCategory("Food item category (Enter 0 to view all):", &category);
+		getCategory("Food item category (Enter 0 to view all):", &category, 1);
 
 		printf("\n");
 		printf("CODE\tNAME\tPRICE\tQTY\tCATEGORY\n");
