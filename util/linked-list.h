@@ -64,7 +64,7 @@ void addNode(LinkedList ll, char name[], char code[], char category[],
 Node * searchByName(LinkedList ll, char name[]) {
 	Node * i;
 	for (i = (ll.head)->next; i != ll.tail; i = i->next)
-		if (strcmp(i->name, name) == 0) return i;
+		if (streqv(i->name, name) == 1) return i;
 	return NULL;
 }
 

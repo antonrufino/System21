@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 // Clears screen.
 void cls() {
@@ -128,6 +129,22 @@ void getYesOrNo(const char * prompt, char * choice) {
 		scanf("%c", choice);
 		getchar();
 	}
+}
+
+// Case insensitive strcmp. Returns 1 if strings are equivalent (same
+// characters disregarding case), 0 otherwise.
+int streqv(const char * a, const char * b) {
+	int i;
+
+	// a and b are not equivalent if they have different lengths.
+	if (strlen(a) != strlen(b)) return 0;
+
+	// Both strings should have the same characters in the same position
+	// regardless of case.
+	for (i = 0; a[i] != '\0'; ++i) {
+		if (tolower(a[i]) != tolower(b[i])) return 0;
+	}
+	return 1;
 }
 
 #endif
