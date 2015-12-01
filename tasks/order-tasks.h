@@ -67,9 +67,10 @@ void addOrder(LinkedList order, LinkedList food) {
 	printf("Food item %s found!\n", query);
 	printf("Name: %s\n", foodItem->name);
 	printf("Price: %4.2f\n", foodItem->price);
+	printf("Amount in stock: %d\n", foodItem->count);
 
 	printf("\n");
-	getInt("Enter number of orders for item: ", &numOrders);
+	getInt("Enter number of orders for item: ", &numOrders, 0);
 
 	// Make sure there is enough food in stock for order.
 	if (numOrders > foodItem->count) {
@@ -93,7 +94,7 @@ void viewFastFood(LinkedList order, LinkedList food) {
 	header();
 	printf("- View Fast Food Menu -\n\n");
 
-	viewFoodItems(food, order, 1);
+	viewFoodItems(food, 1);
 }
 
 // Asks for food item code and removes food item with matching code
@@ -254,16 +255,19 @@ void editQuantity(LinkedList order, LinkedList food, Node * orderItem) {
 		printf("Order found!\n");
 	} else {
 		printf("\n");
+		printf("Current order\n");
 	}
+
+	foodItem = searchByCode(food, orderItem->code);
 
 	printf("Name: %s\n", orderItem->name);
 	printf("Price: %4.2f\n", orderItem->price);
 	printf("Current quantity: %d\n", orderItem->count);
 	printf("Cost: %4.2f\n", orderItem->count * orderItem->price);
+	printf("Amount in stock: %d\n", foodItem->count);
 
 	printf("\n");
-	getInt("New quantity: ", &newQty);
-	foodItem = searchByCode(food, orderItem->code);
+	getInt("New quantity: ", &newQty, 0);
 
 	// Make sure there is enough food in stock for new order.
 	if (newQty > foodItem->count) {

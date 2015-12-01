@@ -19,7 +19,7 @@ void printFoodMenu() {
 
 // Handles collection of user input and calling of appropriate function to
 // handle a task.
-void foodMenu(LinkedList food, LinkedList order) {
+void foodMenu(LinkedList food) {
 	int choice;
 
 	do {
@@ -34,7 +34,7 @@ void foodMenu(LinkedList food, LinkedList order) {
 		else if (choice == 3) updateFoodPrice(food);
 		else if (choice == 4) updateFoodCount(food);
 		else if (choice == 5) updateFoodCategory(food);
-		else if (choice == 6) viewFoodItems(food, order, 0);
+		else if (choice == 6) viewFoodItems(food, 0);
 		else if (choice != 7) {
 			printf("Not a valid choice.\n");
 			pause();

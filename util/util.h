@@ -65,14 +65,20 @@ void getString(const char * prompt, int strlen, char name[]) {
 }
 
 // Gets int input from user. Only allows positive numbers.
-void getInt(const char * prompt, int * out) {
+void getInt(const char * prompt, int * out, int allowZero) {
 	printf("%s", prompt);
 	scanf("%d", out);
 	getchar();
 
 	// Error handling.
-	while (*out < 0) {
-		printf("Input should not be below 0. Try again.\n");
+	while (*out < 1) {
+		if (*out == 0 && allowZero) break;
+
+		if (allowZero)
+			printf("Input should not be below 0. Try again.\n");
+		else
+			printf("Input should not be below 1. Try again.\n");
+
 		printf("%s", prompt);
 		scanf("%d", out);
 		getchar();

@@ -32,7 +32,7 @@ void mainMenu(LinkedList food, LinkedList order) {
 		scanf("%d", &choice);
 		getchar();
 
-		if (choice == 1) foodMenu(food, order);
+		if (choice == 1) foodMenu(food);
 		else if (choice == 2) orderMenu(order, food);
 		else if (choice != 3) {
 			printf("Not a valid choice.\n");
